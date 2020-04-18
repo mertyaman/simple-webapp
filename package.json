@@ -1,0 +1,14 @@
+{
+  "name": "simple-http",
+  "version": "1.0.0",
+  "description": "simple http app",
+  "repository": {
+    "directory": ""
+  },
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "Mert Yaman <mertyaman144@gmail.com>",
+  "license": "ISC"
+}
