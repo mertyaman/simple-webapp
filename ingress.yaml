@@ -1,0 +1,21 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    ingress.kubernetes.io/backends: '{"k8s-be-30873--e8df14de12578527":"HEALTHY"}'
+    ingress.kubernetes.io/forwarding-rule: k8s-fw-default-mynodeapp--e8df14de12578527
+    ingress.kubernetes.io/target-proxy: k8s-tp-default-mynodeapp--e8df14de12578527
+    ingress.kubernetes.io/url-map: k8s-um-default-mynodeapp--e8df14de12578527
+  generation: 1
+  name: mynodeapp
+  namespace: default
+  selfLink: /apis/extensions/v1beta1/namespaces/default/ingresses/mynodeapp
+  uid: cbf73e63-819c-11ea-b7fd-42010aac0081
+spec:
+  backend:
+    serviceName: simple-app
+    servicePort: 8080
+status:
+  loadBalancer:
+    ingress:
+      - ip: 34.107.236.60
