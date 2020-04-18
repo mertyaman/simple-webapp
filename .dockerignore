@@ -2,3 +2,5 @@
 .idea
 README.md
 .git
+.github
+*.yaml
