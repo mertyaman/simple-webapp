@@ -10,12 +10,15 @@
 
 name: Build and Deploy to GKE
 
+# !!! push trigger for master branch
 on:
   push:
     branches:
     - master
 
 # Environment variables available to all jobs and steps in this workflow
+# !!! This variables necessary to use gke. I created a trial account on google cloud
+# and created kubernetes cluster to deploy application.
 env:
   GKE_PROJECT: ${{ secrets.GKE_PROJECT }}
   GKE_EMAIL: ${{ secrets.GKE_EMAIL }}
@@ -46,6 +49,8 @@ jobs:
     - run: |
         # Set up docker to authenticate
         # via gcloud command-line tool.
+        # !!! This command is responsible to edit docker config file.
+        # !!! Basicly it adds insecure registiries and executes docker login operation.
         gcloud auth configure-docker
       
     # Build the Docker image
@@ -61,6 +66,7 @@ jobs:
         docker push $REGISTRY_HOSTNAME/$GKE_PROJECT/$IMAGE:$GITHUB_SHA
         
     # Set up kustomize
+    # !!! This one is optional. It comes from github ci template and I did not remove it.
     - name: Set up Kustomize
       run: |
         curl -o kustomize --location https://github.com/kubernetes-sigs/kustomize/releases/download/v3.1.0/kustomize_3.1.0_linux_amd64
@@ -70,8 +76,10 @@ jobs:
     - name: Deploy
       run: |
         gcloud container clusters get-credentials $GKE_CLUSTER --zone $GKE_ZONE --project $GKE_PROJECT
+        # !!! Next lines deletes existing deployment before deploying the new one.
         kubectl delete deployment simple-app-deployment --wait  --ignore-not-found
         ./kustomize edit set image $REGISTRY_HOSTNAME/$GKE_PROJECT/$IMAGE:${GITHUB_SHA}
         ./kustomize build . | kubectl apply -f -
         kubectl rollout status deployment/$DEPLOYMENT_NAME
+        kubectl get pods -o wide
         kubectl get services -o wide

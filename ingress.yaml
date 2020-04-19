@@ -11,3 +11,6 @@ spec:
             backend:
               serviceName: "simple-app"
               servicePort: 8080
+
+# !!! This one added to reach deployed app from outside of the google cloud.
+# It redirects "ingress_ip/hello" path to our kubernetes service.

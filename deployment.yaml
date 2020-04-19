@@ -19,3 +19,7 @@ spec:
           image: gcr.io/concise-quarter-274612/my-node-alpine
           ports:
             - containerPort: 11130
+
+# !!! Deployment file for gke.
+# Application work son 11130 port
+# Image comes from gcr.

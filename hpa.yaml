@@ -14,3 +14,10 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: simple-app-deployment
+
+# !!!
+# It scales pod replicas based on external metric.
+# This metric name comes from gke custom metric s api.
+# We can find full list of available metric with this kubectl command:
+# "kubectl get --raw '/apis/custom.metrics.k8s.io/v1beta1'"
+# of course with proper .kube/config file
