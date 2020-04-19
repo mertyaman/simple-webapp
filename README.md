@@ -40,3 +40,5 @@ Open localhost:8080 on your web browser to verify.
 `kubectl get all --all-namespaces`
 * List all resources on current namespace:
 `kubectl get all`
+* Get ingress ip on gke:
+`kubectl get ingress`
